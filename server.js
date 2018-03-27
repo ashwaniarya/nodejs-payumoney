@@ -8,9 +8,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine','hbs')
 
 const port = process.env.PORT || 3030
+//Change test to false for production
 const test = true
+//Production salt and key get it from payumoney
 const SALT = ""
 const MERCHANT_KEY = ""
+//test salt and key get it from payumoney
 const TEST_SALT = "eCwWELxi"
 const TEST_KEY = "gtKFFx"
 // hashSequence "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10";
@@ -21,6 +24,7 @@ function genTxnid(){
   let gentxnid = cryptoJs.SHA256(Math.floor((Math.random()*10)+1).toString()+d.getTime().toString())
   return 'v'+gentxnid.toString().substr(0,20)
 }
+//get hash as json request 
 app.post('/hash',(req,res)=>{
   console.log(req.body);
   let hashSequence = "key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5|udf6|udf7|udf8|udf9|udf10"
